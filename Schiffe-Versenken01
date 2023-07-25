@@ -1,0 +1,190 @@
+import java.util.Scanner;
+
+/*
+Was fehlt:
+-) Vertikale umsetzung
+-)  Tastatur-Eingabe
+*/
+public class Main
+{
+	public static void main(String[] args) {
+	   int[] [] playground=new int [6] [10];
+	   String[] abc=new String[]{"A","B","C","D","E","F","G","H","I","J"};
+	   //Scanner z = new Scanner(System.in);
+	   //String name = z.nextLine();
+	   
+	   
+	   int zeilenauswahl=5;
+	   int verschiebung=1;
+	   
+	   System.out.println("playground.length= "+playground.length);// ist 6 
+	   System.out.println("playground[].length= "+playground[0].length);// ist 10
+
+	    
+	    int [] kanonenboot=new int[]{1,1,0,0,0,0,0,0,0,0};
+	   // int [] kanonenboot2=new int[]{1,1,0,0,0,0,0,0,0,0};
+	   // int [] kanonenboot3=new int[]{1,1,0,0,0,0,0,0,0,0};
+	    
+	    int [] schnellboot=new int[]{1,1,1,0,0,0,0,0,0,0};
+	   // int [] schnellboot2=new int[]{1,1,1,0,0,0,0,0,0,0};
+	    
+	    int [] schlachtkreuzer=new int[]{1,1,1,1,0,0,0,0,0,0};
+	   // int [] schlachtkreuzer2=new int[]{1,1,1,1,0,0,0,0,0,0};
+	    
+	    int [] zerstoerer=new int[]{1,1,1,1,1,0,0,0,0,0};
+	    
+	    
+	   // ---------- Erstes Boot setzen ------------
+	   playground=zerstoererSetzen(playground, zeilenauswahl, zerstoerer);
+	   
+	   // Zerstörer in das Array einsetzen
+	   //for (int i=0;i<playground[zeilenauswahl].length; i++){
+	   //    playground[zeilenauswahl][i]=zerstoerer[i];
+	   //}
+	   
+	   //ausdruck(playground,abc);
+	   
+	   // Array verschiebung
+	   
+	   //GERADE GEMACHT:
+	   // ausdruck(playground,abc);
+	   playground=shifting(playground, verschiebung, zeilenauswahl);
+	   ausdruck(playground,abc);
+	   
+	   
+	   
+	   //---------- Zweites Boot setzen--------------
+	   
+	   zeilenauswahl=3;
+	   verschiebung=4;
+	   
+	   playground=schlachtkreuzerSetzen(playground, zeilenauswahl, schlachtkreuzer);
+	   
+	   // boot in das Array einsetzen
+	   //for (int i=0;i<playground[zeilenauswahl].length; i++){
+	   //    playground[zeilenauswahl][i]=schlachtkreuzer1[i];
+	   //}
+	   
+	   ausdruck(playground,abc);
+	   
+	   // Array verschiebung
+	   playground=shifting(playground, verschiebung, zeilenauswahl);
+	   ausdruck(playground,abc);
+	   
+	   //---------- Drittes Boot setzen--------------
+	   
+	   zeilenauswahl=0;
+	   verschiebung=1;
+	   
+	   playground=schlachtkreuzerSetzen(playground, zeilenauswahl, schlachtkreuzer);
+	   
+	   ausdruck(playground,abc);
+	   // Array verschiebung
+	   playground=shifting(playground, verschiebung, zeilenauswahl);
+	   ausdruck(playground,abc);
+	   
+	   //---------- VIERTES Boot setzen--------------
+	   
+	   zeilenauswahl=4;
+	   verschiebung=3;
+	   
+	   playground=schnellbootSetzen(playground, zeilenauswahl, schnellboot);
+	   
+	   ausdruck(playground,abc);
+	   // Array verschiebung
+	   playground=shifting(playground, verschiebung, zeilenauswahl);
+	   ausdruck(playground,abc);
+	   
+	   //---------- Fünftes Boot setzen--------------
+	   
+	   zeilenauswahl=3;
+	   verschiebung=0;
+	   
+	   playground=kanonenbootSetzen(playground, zeilenauswahl, kanonenboot);
+	   
+	   ausdruck(playground,abc);
+	   // Array verschiebung
+	   playground=shifting(playground, verschiebung, zeilenauswahl);
+	   ausdruck(playground,abc);
+	}	    
+	
+	    public static int[][] shifting(int[] [] playground, int verschiebung,int zeilenauswahl) {    
+        int aTemp;
+            for(int j=0;j<verschiebung;j++){
+                // Verschiebung nach rechts!!!
+                
+                // Mit ChatGPT gelöst! Original-Zeile: 
+                // aTemp=playground[zeilenauswahl][playground.length-1];
+                // OLD  aTemp=playground[zeilenauswahl][playground.length-1];
+                        aTemp=playground[zeilenauswahl][playground[zeilenauswahl].length - 1];
+                
+                for (int i=playground[zeilenauswahl].length-1;i>0;i--){
+                    playground[zeilenauswahl][i]=playground[zeilenauswahl][i-1];
+                    }
+                    
+                playground[zeilenauswahl][0]=aTemp;
+            }
+        // Ausdruck
+        System.out.println("im Shifting! ");
+            
+            //GERADE GEMACHT:
+            // for (int i=0;i<playground[zeilenauswahl].length;i++){
+            //     System.out.print("|"+playground[zeilenauswahl][i]) ;
+            // }
+            // System.out.print("|") ;
+        return playground;
+        }    
+	    
+    public static void ausdruck(int[][] playground, String abc[]) {	    
+	    // Ausdruck
+	    System.out.println("AUSDRUCK: ");
+	    System.out.print("              ");
+	    for (int i=0;i<abc.length; i++){
+	        System.out.print("|"+abc[i]);
+	    }
+	    System.out.println("|");
+	    System.out.println("              |-|-|-|-|-|-|-|-|-|-|");
+	    
+	    
+	    for (int j=0;j<playground.length; j++){
+	        System.out.print("Array Nr.:"+(j+1)+"   ");
+    	    for (int i=0;i<playground[0].length; i++){
+    	        System.out.print("|"+playground[j][i]);
+    	    }
+    	    System.out.println("|");
+	    }
+}
+
+	    public static int[][] kanonenbootSetzen(int[] [] playground, int zeilenauswahl,int[] kanonenboot) {
+	    // schnellboot in das Array einsetzen
+	            for (int i=0;i<playground[zeilenauswahl].length; i++){
+	                playground[zeilenauswahl][i]=kanonenboot[i];
+	            }
+	        return playground;    
+	        
+	    }
+	    public static int[][] schnellbootSetzen(int[] [] playground, int zeilenauswahl,int[] schnellboot) { 
+	      // schnellboot in das Array einsetzen
+	            for (int i=0;i<playground[zeilenauswahl].length; i++){
+	                playground[zeilenauswahl][i]=schnellboot[i];
+	            }
+	        return playground;
+	   }
+	   public static int[][] schlachtkreuzerSetzen(int[] [] playground, int zeilenauswahl,int[] schlachtkreuzer) {
+	        // Zerstörer in das Array einsetzen
+	            for (int i=0;i<playground[zeilenauswahl].length; i++){
+	                playground[zeilenauswahl][i]=schlachtkreuzer[i];
+	            }
+	        return playground;
+	   }
+	   
+	   //----------------------------------
+	    public static int[][] zerstoererSetzen(int[] [] playground, int zeilenauswahl,int[] zerstoerer) {
+	        // Zerstörer in das Array einsetzen
+	            for (int i=0;i<playground[zeilenauswahl].length; i++){
+	                playground[zeilenauswahl][i]=zerstoerer[i];
+	            }
+	        return playground;
+	        
+	    }
+}
